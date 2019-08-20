@@ -26,7 +26,8 @@ class Index extends React.Component {
 			],
 			head: head,
 			tail: tail,
-			direction: RIGHT
+			direction: RIGHT,
+			food: {x: parseInt(Math.random()*DIMENTION), y: parseInt(Math.random()*DIMENTION)}
 		};
 	}
 
@@ -87,10 +88,11 @@ class Index extends React.Component {
 	}
 
 	render() {
+		console.log('food: ', this.state.food);
 		return (
 			<div>
 				<h1>Hello next!</h1>
-				<Griddle presence={this.state.presence} />
+				<Griddle presence={this.state.presence} food={this.state.food} />
 				<button onClick={this.moveRight}>Right</button>
 				<button onClick={this.moveLeft}>Left</button>
 				<button onClick={this.moveUp}>Up</button>
