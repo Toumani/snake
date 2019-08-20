@@ -1,5 +1,3 @@
-import _ from 'lodash';
-
 import Box from './Box';
 
 class Griddle extends React.Component {
