@@ -2,6 +2,8 @@ import _ from 'lodash';
 
 import Griddle from '../components/Griddle';
 
+import keyCodes from '../constants/keyCodes';
+
 const DIMENTION = 10;
 const RIGHT = 'RIGHT';
 const LEFT = 'LEFT';
@@ -91,6 +93,30 @@ class Index extends React.Component {
 		});
 	}
 
+	handleKeyPress = (keyEvent) => {
+		console.log(keyEvent);
+		console.log('charCode: ', keyEvent.charCode);
+		console.log('key: ', keyEvent.key);
+		console.log('keyCode: ', keyEvent.keyCode);
+
+		switch (keyEvent.keyCode) {
+			case keyCodes.ARROW_LEFT:
+				this.moveLeft();
+				break;
+			case keyCodes.ARROW_UP:
+				this.moveUp();
+				break;
+			case keyCodes.ARROW_RIGHT:
+				this.moveRight();
+				break;
+			case keyCodes.ARROW_DOWN:
+				this.moveDown();
+				break;
+			default:
+				break;
+		}
+	}
+
 	moveRight = () => {
 		this.setState({ direction: RIGHT });
 	}
@@ -115,7 +141,7 @@ class Index extends React.Component {
 		return (
 			<div>
 				<h1>Hello next!</h1>
-				<Griddle presence={this.state.presence} food={this.state.food} />
+				<Griddle presence={this.state.presence} food={this.state.food} handleKeyPress={(keyEvent) => this.handleKeyPress(keyEvent)} />
 				<button onClick={this.moveLeft}>Left</button>
 				<button onClick={this.moveDown}>Down</button>
 				<button onClick={this.moveUp}>Up</button>

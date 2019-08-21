@@ -3,6 +3,10 @@ import Box from './Box';
 import { SNAKE_BODY, FOOD, NONE } from './Box';
 
 class Griddle extends React.Component {
+	handleKeyPress = (keyEvent) => {
+		this.props.handleKeyPress(keyEvent);
+	}
+
 	render() {
 		let boxesJSX = [];
 
@@ -32,7 +36,7 @@ class Griddle extends React.Component {
 		}
 
 		return (
-			<div style={{width: "105px", height: "105px", border: "1px solid #000", display: "block", lineHeight: 0, boxSizing: "border-box", padding: "1px"}}>
+			<div style={{width: "105px", height: "105px", border: "1px solid #000", display: "block", lineHeight: 0, boxSizing: "border-box", padding: "1px"}} onKeyDown={keyEvent => this.handleKeyPress(keyEvent)} tabIndex="0">
 				{ boxesJSX }
 			</div>
 		)
