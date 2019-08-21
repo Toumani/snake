@@ -18,7 +18,9 @@ class Box extends React.Component {
 	render() {
 		let color = this.getColor(this.props.type);
 		return (
-			<div style={{width: "10px", height: "10px", display: "inline-block", boxSizing: "border-box", backgroundColor: color}}></div>
+			<div style={{width: "10px", height: "10px", display: "inline-block", boxSizing: "border-box", backgroundColor: color}}>
+				{/* {this.props.children} */}
+			</div>
 		)
 	}
 }

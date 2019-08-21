@@ -17,15 +17,20 @@ class Griddle extends React.Component {
 					}
 				});
 				if (this.props.food.x === j && this.props.food.y === i) {
+					console.log('food in Griddle: ', this.props.food);
+					console.log('i: ', i);
+					console.log('j: ', j);
 					type = FOOD;
 				}
 				boxesJSX.push(
-					<Box x={j} y={i} type={type} />
+					<Box x={j} y={i} type={type}>
+						{i} {j}
+					</Box>
 				);
 				type = NONE;
 			}
 		}
-		
+
 		return (
 			<div style={{width: "105px", height: "105px", border: "1px solid #000", display: "block", lineHeight: 0, boxSizing: "border-box", padding: "1px"}}>
 				{ boxesJSX }

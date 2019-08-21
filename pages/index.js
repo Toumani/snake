@@ -16,6 +16,7 @@ class Index extends React.Component {
 		const neck = {x: 5, y: 5, lead: head};
 		const body = {x: 4, y: 5, lead: neck};
 		const tail = {x: 3, y: 5, lead: body};
+		const food = {x: parseInt(Math.random()*DIMENTION), y: parseInt(Math.random()*DIMENTION)};
 
 		this.state = {
 			presence: [
@@ -27,16 +28,17 @@ class Index extends React.Component {
 			head: head,
 			tail: tail,
 			direction: RIGHT,
-			food: {x: parseInt(Math.random()*DIMENTION), y: parseInt(Math.random()*DIMENTION)}
+			food: {x: 2, y: 7}
 		};
 	}
 
 	componentDidMount() {
-		setInterval(this.moveSnake, 3000);
+		let interval = setInterval(this.moveSnake, 500);
+		this.setState({interval});
 	}
 
 	moveSnake = () => {
-		const { head, tail, presence, direction } = this.state;
+		const { head, tail, presence, direction, food } = this.state;
 
 		let newPresence = presence;
 
@@ -56,8 +58,8 @@ class Index extends React.Component {
 				newHead = {x: head.x, y: head.y + 1, lead: null};
 				break;
 		}
-		
-		let newTail = tail.lead
+
+		let newTail;
 
 		newPresence.push(newHead);
 		_.forEach(newPresence, function(box) {
@@ -65,12 +67,27 @@ class Index extends React.Component {
 				box.lead = newHead;
 			}
 		});
-		_.remove(newPresence, {x: tail.x, y: tail.y})
-		
+
+		let newFood = food;
+		// If the snake eats the food
+		console.log('newHead: ', newHead);
+		console.log('food:', food);
+		if (newHead.x === food.x && newHead.y === food.y) {
+			console.log('Eating');
+			newFood = {x: parseInt(Math.random()*DIMENTION), y: parseInt(Math.random()*DIMENTION)}
+			newTail = tail;
+		}
+		else {
+			console.log('Not eating');
+			_.remove(newPresence, {x: tail.x, y: tail.y})
+			newTail = tail.lead
+		}
+
 		this.setState({
 			presence: newPresence,
 			head: newHead,
-			tail: newTail
+			tail: newTail,
+			food: newFood
 		});
 	}
 
@@ -86,17 +103,25 @@ class Index extends React.Component {
 	moveDown = () => {
 		this.setState({ direction: DOWN });
 	}
+	stop = () => {
+		clearInterval(this.state.interval);
+	}
+	play = () => {
+		let interval = setInterval(this.moveSnake, 500);
+		this.setState({interval});
+	}
 
 	render() {
-		console.log('food: ', this.state.food);
 		return (
 			<div>
 				<h1>Hello next!</h1>
 				<Griddle presence={this.state.presence} food={this.state.food} />
-				<button onClick={this.moveRight}>Right</button>
 				<button onClick={this.moveLeft}>Left</button>
-				<button onClick={this.moveUp}>Up</button>
 				<button onClick={this.moveDown}>Down</button>
+				<button onClick={this.moveUp}>Up</button>
+				<button onClick={this.moveRight}>Right</button>
+				<button onClick={this.stop}>Stop</button>
+				<button onClick={this.play}>Play</button>
 			</div>
 		)
 	}
