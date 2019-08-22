@@ -4,7 +4,7 @@ import Griddle from '../components/Griddle';
 
 import keyCodes from '../constants/keyCodes';
 
-const DIMENTION = 10;
+export const DIMENTION = 10;
 const RIGHT = 'RIGHT';
 const LEFT = 'LEFT';
 const UP = 'UP';
@@ -138,6 +138,7 @@ class Index extends React.Component {
 		clearInterval(this.state.interval);
 	}
 	play = () => {
+		document.getElementById('game-griddle').focus();
 		let interval = setInterval(this.moveSnake, 100);
 		this.setState({interval});
 	}
@@ -146,7 +147,11 @@ class Index extends React.Component {
 		return (
 			<div>
 				<h1>Hello next!</h1>
-				<Griddle presence={this.state.presence} food={this.state.food} handleKeyPress={(keyEvent) => this.handleKeyPress(keyEvent)} />
+				<Griddle
+					presence={this.state.presence}
+					food={this.state.food}
+					handleKeyPress={(keyEvent) => this.handleKeyPress(keyEvent)}
+				/>
 				<button onClick={this.moveLeft}>Left</button>
 				<button onClick={this.moveDown}>Down</button>
 				<button onClick={this.moveUp}>Up</button>

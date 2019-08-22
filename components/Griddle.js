@@ -1,5 +1,6 @@
 import Box from './Box';
 
+import { DIMENTION } from '../pages/index';
 import { SNAKE_BODY, FOOD, NONE } from './Box';
 
 class Griddle extends React.Component {
@@ -27,7 +28,7 @@ class Griddle extends React.Component {
 					type = FOOD;
 				}
 				boxesJSX.push(
-					<Box x={j} y={i} type={type}>
+					<Box x={j} y={i} type={type} id={j*DIMENTION + i}>
 						{i} {j}
 					</Box>
 				);
@@ -36,7 +37,12 @@ class Griddle extends React.Component {
 		}
 
 		return (
-			<div style={{width: "105px", height: "105px", border: "1px solid #000", display: "block", lineHeight: 0, boxSizing: "border-box", padding: "1px"}} onKeyDown={keyEvent => this.handleKeyPress(keyEvent)} tabIndex="0">
+			<div
+				id={'game-griddle'}
+				style={{width: "105px", height: "105px", border: "1px solid #000", display: "block", lineHeight: 0, boxSizing: "border-box", padding: "1px"}}
+				onKeyDown={keyEvent => this.handleKeyPress(keyEvent)}
+				tabIndex="0"
+			>
 				{ boxesJSX }
 			</div>
 		)
