@@ -40,7 +40,7 @@ class Index extends React.Component {
 
 		let newPresence = presence;
 
-		/* Repositionning new head an tail */
+		// Repositionning new head
 		let newHead;
 		switch (nextMoveDirection) {
 			case RIGHT:
@@ -57,14 +57,31 @@ class Index extends React.Component {
 				break;
 		}
 
-		let newTail;
-
 		newPresence.push(newHead);
+
+		// Setting old head's lead to newHead
 		_.forEach(newPresence, function(box) {
 			if (box.x === head.x && box.y === head.y) {
 				box.lead = newHead;
 			}
 		});
+
+		// Checking if new head is on snakes body.
+		// We are checking on old presence since new head belongs to new presence
+		let body = tail;
+		while (body !== newHead) {
+			if (body.x === newHead.x && body.y === newHead.y) {
+				// Game over
+				console.log('game over');
+				this.stop();
+				return;
+			}
+			// Check for next node
+			body = body.lead;
+		}
+
+		// Repositionning new tail
+		let newTail;
 
 		let newFood = food;
 		// If the snake eats the food
@@ -91,11 +108,6 @@ class Index extends React.Component {
 	}
 
 	handleKeyPress = (keyEvent) => {
-		console.log(keyEvent);
-		console.log('charCode: ', keyEvent.charCode);
-		console.log('key: ', keyEvent.key);
-		console.log('keyCode: ', keyEvent.keyCode);
-
 		switch (keyEvent.keyCode) {
 			case keyCodes.ARROW_LEFT:
 				this.moveLeft();

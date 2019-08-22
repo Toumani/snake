@@ -28,7 +28,7 @@ class Griddle extends React.Component {
 					type = FOOD;
 				}
 				boxesJSX.push(
-					<Box x={j} y={i} type={type} id={j*DIMENTION + i}>
+					<Box x={j} y={i} type={type} key={j*DIMENTION + i}>
 						{i} {j}
 					</Box>
 				);
