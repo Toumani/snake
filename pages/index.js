@@ -30,18 +30,19 @@ class Index extends React.Component {
 			head: head,
 			tail: tail,
 			direction: RIGHT,
+			nextMoveDirection: RIGHT,
 			food: {x: 2, y: 7}
 		};
 	}
 
 	moveSnake = () => {
-		const { head, tail, presence, direction, food } = this.state;
+		const { head, tail, presence, nextMoveDirection, food } = this.state;
 
 		let newPresence = presence;
 
 		/* Repositionning new head an tail */
 		let newHead;
-		switch (direction) {
+		switch (nextMoveDirection) {
 			case RIGHT:
 				newHead = {x: (head.x + 1)%DIMENTION, y: head.y, lead: null};
 				break;
@@ -84,7 +85,8 @@ class Index extends React.Component {
 			presence: newPresence,
 			head: newHead,
 			tail: newTail,
-			food: newFood
+			food: newFood,
+			direction: nextMoveDirection
 		});
 	}
 
@@ -113,16 +115,24 @@ class Index extends React.Component {
 	}
 
 	moveRight = () => {
-		this.setState({ direction: RIGHT });
+		if (this.state.direction === LEFT)
+			return;
+		this.setState({ nextMoveDirection: RIGHT });
 	}
 	moveLeft = () => {
-		this.setState({ direction: LEFT });
+		if (this.state.direction === RIGHT)
+			return;
+		this.setState({ nextMoveDirection: LEFT });
 	}
 	moveUp = () => {
-		this.setState({ direction: UP });
+		if (this.state.direction === DOWN)
+			return;
+		this.setState({ nextMoveDirection: UP });
 	}
 	moveDown = () => {
-		this.setState({ direction: DOWN });
+		if (this.state.direction === UP)
+			return;
+		this.setState({ nextMoveDirection: DOWN });
 	}
 	stop = () => {
 		clearInterval(this.state.interval);
