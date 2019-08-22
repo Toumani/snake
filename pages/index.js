@@ -10,29 +10,32 @@ const LEFT = 'LEFT';
 const UP = 'UP';
 const DOWN = 'DOWN';
 
+const head = {x: 6, y: 5, lead: null};
+const neck = {x: 5, y: 5, lead: head};
+const body = {x: 4, y: 5, lead: neck};
+const tail = {x: 3, y: 5, lead: body};
+const food = {x: parseInt(Math.random()*DIMENTION), y: parseInt(Math.random()*DIMENTION)};
+
+const initialState = {
+	presence: [
+		head,
+		neck,
+		body,
+		tail
+	],
+	head: head,
+	tail: tail,
+	direction: RIGHT,
+	nextMoveDirection: RIGHT,
+	food: {x: 2, y: 7},
+	gameOver: false
+};
+
 class Index extends React.Component {
 	constructor(props) {
 		super(props);
 
-		const head = {x: 6, y: 5, lead: null};
-		const neck = {x: 5, y: 5, lead: head};
-		const body = {x: 4, y: 5, lead: neck};
-		const tail = {x: 3, y: 5, lead: body};
-		const food = {x: parseInt(Math.random()*DIMENTION), y: parseInt(Math.random()*DIMENTION)};
-
-		this.state = {
-			presence: [
-				head,
-				neck,
-				body,
-				tail
-			],
-			head: head,
-			tail: tail,
-			direction: RIGHT,
-			nextMoveDirection: RIGHT,
-			food: {x: 2, y: 7}
-		};
+		this.state = initialState;
 	}
 
 	moveSnake = () => {
@@ -74,6 +77,7 @@ class Index extends React.Component {
 				// Game over
 				console.log('game over');
 				this.stop();
+				this.setState({gameOver: true})
 				return;
 			}
 			// Check for next node
@@ -150,6 +154,29 @@ class Index extends React.Component {
 		let interval = setInterval(this.moveSnake, 100);
 		this.setState({interval});
 	}
+	restart = () => {
+		const head = {x: 6, y: 5, lead: null};
+		const neck = {x: 5, y: 5, lead: head};
+		const body = {x: 4, y: 5, lead: neck};
+		const tail = {x: 3, y: 5, lead: body};
+
+		const initialState = {
+			presence: [
+				head,
+				neck,
+				body,
+				tail
+			],
+			head: head,
+			tail: tail,
+			direction: RIGHT,
+			nextMoveDirection: RIGHT,
+			food: {x: 2, y: 7},
+			gameOver: false
+		};
+
+		this.setState(initialState);
+	}
 
 	render() {
 		return (
@@ -164,8 +191,25 @@ class Index extends React.Component {
 				<button onClick={this.moveDown}>Down</button>
 				<button onClick={this.moveUp}>Up</button>
 				<button onClick={this.moveRight}>Right</button>
-				<button onClick={this.stop}>Stop</button>
-				<button onClick={this.play}>Play</button>
+				{ this.state.gameOver ?
+				(
+				<button
+					onClick={() => {
+						this.restart();
+				}}>
+					Restart
+				</button>
+				)
+				:
+				(
+				<button onClick={this.stop}>
+					Stop
+				</button>
+				)
+				}
+				<button onClick={this.play}>
+					Play
+				</button>
 			</div>
 		)
 	}
