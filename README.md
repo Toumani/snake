@@ -19,6 +19,7 @@ Type are :
 * feature
 * bug
 * chore
+* performance
 * release
 * refactor
 * documentation

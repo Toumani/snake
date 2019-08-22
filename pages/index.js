@@ -85,15 +85,11 @@ class Index extends React.Component {
 
 		let newFood = food;
 		// If the snake eats the food
-		console.log('newHead: ', newHead);
-		console.log('food:', food);
 		if (newHead.x === food.x && newHead.y === food.y) {
-			console.log('Eating');
 			newFood = {x: parseInt(Math.random()*DIMENTION), y: parseInt(Math.random()*DIMENTION)}
 			newTail = tail;
 		}
 		else {
-			console.log('Not eating');
 			_.remove(newPresence, {x: tail.x, y: tail.y})
 			newTail = tail.lead
 		}

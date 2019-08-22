@@ -22,9 +22,6 @@ class Griddle extends React.Component {
 					}
 				});
 				if (this.props.food.x === j && this.props.food.y === i) {
-					console.log('food in Griddle: ', this.props.food);
-					console.log('i: ', i);
-					console.log('j: ', j);
 					type = FOOD;
 				}
 				boxesJSX.push(
