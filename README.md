@@ -11,6 +11,10 @@ Since the app was initially intended to run completly front-end, I used the grea
 * ```npm run dev```
 * Open a browser and the app is served at ```http://localhost:3000/```
 
+## Or simply...
+
+Or simply navigate to ```https://snake.toumani.now.sh```
+
 ## Source control rules
 ### Commits naming
 Commits naming follow [Andela's conventions and best practices](https://github.com/andela/bestpractices/wiki/Git-naming-conventions-and-best-practices): ```<type>(<scope>): <subject>``<BLANK LINE> <body> <BLANK LINE> <footer>```
