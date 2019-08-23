@@ -200,6 +200,7 @@ class Index extends React.Component {
 				<h1>Hello next!</h1>
 				<Griddle
 					presence={this.state.presence}
+					head={this.state.head}
 					food={this.state.food}
 					handleKeyPress={(keyEvent) => this.handleKeyPress(keyEvent)}
 				/>

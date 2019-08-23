@@ -1,7 +1,7 @@
 import Box from './Box';
 
 import { DIMENTION } from '../pages/index';
-import { SNAKE_BODY, FOOD, NONE } from './Box';
+import { SNAKE_BODY, SNAKE_HEAD, FOOD, NONE } from './Box';
 
 class Griddle extends React.Component {
 	handleKeyPress = (keyEvent) => {
@@ -15,12 +15,17 @@ class Griddle extends React.Component {
 		let type = NONE;
 		for (let i = 0; i < 10; i++) {
 			for (let j = 0; j < 10; j++) {
-				this.props.presence.forEach(box => {
-					if (box.x === j && box.y === i) {
-						type = SNAKE_BODY;
-						return;
-					}
-				});
+				if (j === this.props.head.x && i === this.props.head.y) {
+					type = SNAKE_HEAD;
+				}
+				else {
+					this.props.presence.forEach(box => {
+						if (box.x === j && box.y === i) {
+							type = SNAKE_BODY;
+							return;
+						}
+					});
+				}
 				if (this.props.food.x === j && this.props.food.y === i) {
 					type = FOOD;
 				}
