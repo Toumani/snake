@@ -87,10 +87,26 @@ class Index extends React.Component {
 		// Repositionning new tail
 		let newTail;
 
+		// By default food does not move
 		let newFood = food;
+
 		// If the snake eats the food
 		if (newHead.x === food.x && newHead.y === food.y) {
-			newFood = {x: parseInt(Math.random()*DIMENTION), y: parseInt(Math.random()*DIMENTION)}
+			// New random position for food
+			// nonPresence is all the boxes where the snake is not present
+			let nonPresence = [];
+			for (let i = 0; i < DIMENTION; i++) {
+				for (let j = 0; j < DIMENTION; j++) {
+					if (typeof _.find(newPresence, {x: j, y: i}) === 'undefined') {
+						nonPresence.push({x: j, y: i})
+					}
+				}
+			}
+			let newFoodIndex = parseInt(Math.random()*nonPresence.length);
+			// console.log('nonPresence: ', nonPresence);
+			// console.log('newFoodIndex: ', newFoodIndex);
+			
+			newFood = nonPresence[newFoodIndex];
 			newTail = tail;
 		}
 		else {
