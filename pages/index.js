@@ -60,32 +60,10 @@ class Index extends React.Component {
 				break;
 		}
 
-		newPresence.push(newHead);
-
-		// Setting old head's lead to newHead
-		_.forEach(newPresence, function(box) {
-			if (box.x === head.x && box.y === head.y) {
-				box.lead = newHead;
-			}
-		});
-
-		// Checking if new head is on snakes body.
-		// We are checking on old presence since new head belongs to new presence
-		let body = tail;
-		while (body !== newHead) {
-			if (body.x === newHead.x && body.y === newHead.y) {
-				// Game over
-				console.log('game over');
-				this.stop();
-				this.setState({gameOver: true})
-				return;
-			}
-			// Check for next node
-			body = body.lead;
-		}
-
 		// Repositionning new tail
+		// Tail remains at the same position if the snakes eats. Otherwise it moves to it's lead
 		let newTail;
+		let removeTail = false;
 
 		// By default food does not move
 		let newFood = food;
@@ -103,14 +81,41 @@ class Index extends React.Component {
 				}
 			}
 			let newFoodIndex = parseInt(Math.random()*nonPresence.length);
-			// console.log('nonPresence: ', nonPresence);
-			// console.log('newFoodIndex: ', newFoodIndex);
 			
 			newFood = nonPresence[newFoodIndex];
 			newTail = tail;
 		}
 		else {
+			removeTail = true;
+		}
+
+		newPresence.push(newHead);
+
+		// Setting old head's lead to newHead
+		_.forEach(newPresence, function(box) {
+			if (box.x === head.x && box.y === head.y) {
+				box.lead = newHead;
+			}
+		});
+
+		// Checking if new head is on snakes body.
+		// We are checking on old presence since new head belongs to new presence
+		let body = tail.lead;
+		while (body !== head) {
+			if (body.x === newHead.x && body.y === newHead.y) {
+				// Game over
+				console.log('game over');
+				this.stop();
+				this.setState({gameOver: true})
+				return;
+			}
+			// Check for next node
+			body = body.lead;
+		}
+
+		if (removeTail) {
 			_.remove(newPresence, {x: tail.x, y: tail.y})
+			console.log('Removing', {x: tail.x, y: tail.y});
 			newTail = tail.lead
 		}
 
@@ -167,7 +172,7 @@ class Index extends React.Component {
 	}
 	play = () => {
 		document.getElementById('game-griddle').focus();
-		let interval = setInterval(this.moveSnake, 100);
+		let interval = setInterval(this.moveSnake, 1000);
 		this.setState({interval});
 	}
 	restart = () => {
