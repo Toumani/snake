@@ -68,6 +68,8 @@ class Index extends React.Component {
 		// By default food does not move
 		let newFood = food;
 
+		newPresence.push(newHead);
+
 		// If the snake eats the food
 		if (newHead.x === food.x && newHead.y === food.y) {
 			// New random position for food
@@ -88,8 +90,6 @@ class Index extends React.Component {
 		else {
 			removeTail = true;
 		}
-
-		newPresence.push(newHead);
 
 		// Setting old head's lead to newHead
 		_.forEach(newPresence, function(box) {
@@ -115,7 +115,6 @@ class Index extends React.Component {
 
 		if (removeTail) {
 			_.remove(newPresence, {x: tail.x, y: tail.y})
-			console.log('Removing', {x: tail.x, y: tail.y});
 			newTail = tail.lead
 		}
 
@@ -172,7 +171,7 @@ class Index extends React.Component {
 	}
 	play = () => {
 		document.getElementById('game-griddle').focus();
-		let interval = setInterval(this.moveSnake, 1000);
+		let interval = setInterval(this.moveSnake, 100);
 		this.setState({interval});
 	}
 	restart = () => {
