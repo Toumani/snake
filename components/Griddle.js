@@ -1,6 +1,6 @@
 import Box from './Box';
 
-import { DIMENTION } from '../pages/index';
+import { DIMENTION } from '../pages/Play';
 import { SNAKE_BODY, SNAKE_HEAD, FOOD, NONE } from './Box';
 
 class Griddle extends React.Component {
