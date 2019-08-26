@@ -4,8 +4,8 @@ import Griddle from '../components/Griddle';
 import CanvasGriddle from '../components/CanvasGriddle';
 
 import keyCodes from '../constants/keyCodes';
+import config from '../constants/config';
 
-export const DIMENTION = 10;
 const RIGHT = 'RIGHT';
 const LEFT = 'LEFT';
 const UP = 'UP';
@@ -15,7 +15,7 @@ const head = {x: 6, y: 5, lead: null};
 const neck = {x: 5, y: 5, lead: head};
 const body = {x: 4, y: 5, lead: neck};
 const tail = {x: 3, y: 5, lead: body};
-const food = {x: parseInt(Math.random()*DIMENTION), y: parseInt(Math.random()*DIMENTION)};
+const food = {x: parseInt(Math.random()*config.DIMENSION), y: parseInt(Math.random()*config.DIMENSION)};
 
 const initialState = {
 	presence: [
@@ -48,16 +48,16 @@ class Play extends React.Component {
 		let newHead;
 		switch (nextMoveDirection) {
 			case RIGHT:
-				newHead = {x: (head.x + 1)%DIMENTION, y: head.y, lead: null};
+				newHead = {x: (head.x + 1)%config.DIMENSION, y: head.y, lead: null};
 				break;
 			case LEFT:
-				newHead = {x: (head.x + 9)%DIMENTION, y: head.y, lead: null};
+				newHead = {x: (head.x + config.DIMENSION - 1)%config.DIMENSION, y: head.y, lead: null};
 				break;
 			case UP:
-				newHead = {x: head.x, y: (head.y + 9)%DIMENTION, lead: null};
+				newHead = {x: head.x, y: (head.y + config.DIMENSION - 1)%config.DIMENSION, lead: null};
 				break;
 			case DOWN:
-				newHead = {x: head.x, y: (head.y + 1)%DIMENTION, lead: null};
+				newHead = {x: head.x, y: (head.y + 1)%config.DIMENSION, lead: null};
 				break;
 		}
 
@@ -74,8 +74,8 @@ class Play extends React.Component {
 			// New random position for food
 			// nonPresence is all the boxes where the snake is not present
 			let nonPresence = [];
-			for (let i = 0; i < DIMENTION; i++) {
-				for (let j = 0; j < DIMENTION; j++) {
+			for (let i = 0; i < config.DIMENSION; i++) {
+				for (let j = 0; j < config.DIMENSION; j++) {
 					if (typeof _.find(newPresence, {x: j, y: i}) === 'undefined') {
 						nonPresence.push({x: j, y: i})
 					}
@@ -202,18 +202,18 @@ class Play extends React.Component {
 		return (
 			<div>
 				<h1>Hello next!</h1>
-				<Griddle
-					presence={this.state.presence}
-					head={this.state.head}
-					food={this.state.food}
-					handleKeyPress={(keyEvent) => this.handleKeyPress(keyEvent)}
-				/>
-				{/* <CanvasGriddle
+				{/* <Griddle
 					presence={this.state.presence}
 					head={this.state.head}
 					food={this.state.food}
 					handleKeyPress={(keyEvent) => this.handleKeyPress(keyEvent)}
 				/> */}
+				<CanvasGriddle
+					presence={this.state.presence}
+					head={this.state.head}
+					food={this.state.food}
+					handleKeyPress={(keyEvent) => this.handleKeyPress(keyEvent)}
+				/>
 				<button onClick={this.moveLeft}>Left</button>
 				<button onClick={this.moveDown}>Down</button>
 				<button onClick={this.moveUp}>Up</button>

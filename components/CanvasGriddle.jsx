@@ -1,7 +1,6 @@
+import config from '../constants/config';
+
 const PIXEL_SIZE = 10;
-const DIMENSION = 10;
-
-
 
 class CanvasGriddle extends React.Component {
 	constructor(props) {
@@ -15,6 +14,10 @@ class CanvasGriddle extends React.Component {
 	componentDidMount() {
 		const canvas = this.refs.canvas
 		this.setState({canvas});
+	}
+
+	handleKeyPress = (keyEvent) => {
+		this.props.handleKeyPress(keyEvent);
 	}
 	
 	render() {
@@ -42,7 +45,15 @@ class CanvasGriddle extends React.Component {
 		}
 
 		return (
-			<canvas  ref="canvas" width={PIXEL_SIZE*DIMENSION} height={PIXEL_SIZE*DIMENSION} style={{border: '1px solid #000000'}} />
+			<canvas
+				height={PIXEL_SIZE*config.DIMENSION}
+				id="game-griddle"
+				onKeyDown={keyEvent => this.handleKeyPress(keyEvent)}
+				ref="canvas"
+				style={{ border: '1px solid #000000' }}
+				tabIndex="0"
+				width={PIXEL_SIZE*config.DIMENSION}
+			/>
 		);
 	}
 }

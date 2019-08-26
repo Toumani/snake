@@ -1,6 +1,7 @@
 import Box from './Box';
 
-import { DIMENTION } from '../pages/Play';
+import config from '../constants/config';
+
 import { SNAKE_BODY, SNAKE_HEAD, FOOD, NONE } from './Box';
 
 class Griddle extends React.Component {
@@ -13,8 +14,8 @@ class Griddle extends React.Component {
 
 		// Displaying snake
 		let type = NONE;
-		for (let i = 0; i < DIMENTION; i++) {
-			for (let j = 0; j < DIMENTION; j++) {
+		for (let i = 0; i < config.DIMENSION; i++) {
+			for (let j = 0; j < config.DIMENSION; j++) {
 				if (j === this.props.head.x && i === this.props.head.y) {
 					type = SNAKE_HEAD;
 				}
@@ -30,7 +31,7 @@ class Griddle extends React.Component {
 					type = FOOD;
 				}
 				boxesJSX.push(
-					<Box x={j} y={i} type={type} key={j*DIMENTION + i}>
+					<Box x={j} y={i} type={type} key={j*config.DIMENSION + i}>
 						{i} {j}
 					</Box>
 				);
