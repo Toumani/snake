@@ -1,6 +1,7 @@
 import _ from 'lodash';
 
 import Griddle from '../components/Griddle';
+import CanvasGriddle from '../components/CanvasGriddle';
 
 import keyCodes from '../constants/keyCodes';
 
@@ -203,6 +204,12 @@ class Play extends React.Component {
 			<div>
 				<h1>Hello next!</h1>
 				<Griddle
+					presence={this.state.presence}
+					head={this.state.head}
+					food={this.state.food}
+					handleKeyPress={(keyEvent) => this.handleKeyPress(keyEvent)}
+				/>
+				<CanvasGriddle
 					presence={this.state.presence}
 					head={this.state.head}
 					food={this.state.food}

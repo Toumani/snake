@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/styles';
@@ -20,9 +22,11 @@ class MenuButton extends React.Component {
 	render() {
 		return (
 			<Grid item style={classes.buttonContainer}>
-				<Button variant="contained" size="large" color="primary" style={classes.menuButton}>
-					{ this.props.text }
-				</Button>
+				<Link href={this.props.path}>
+					<Button variant="contained" size="large" color="primary" style={classes.menuButton}>
+						{ this.props.text }
+					</Button>
+				</Link>
 			</Grid>
 		);
 	}
@@ -47,7 +51,7 @@ class Index extends React.Component {
 				direction="column"
 				justify="space-around"
 			>
-				<MenuButton text="Play" />
+				<MenuButton path="/Play" text="Play" />
 				<MenuButton text="High_scores" />
 				<MenuButton text="Settings" />
 				<MenuButton text="About" />
