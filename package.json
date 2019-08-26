@@ -13,12 +13,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@material-ui/core": "^4.3.3",
+    "@material-ui/styles": "^4.3.3",
     "lodash": "^4.17.15",
     "next": "^9.0.3",
     "react": "^16.9.0",
-    "react-dom": "^16.9.0",
-    "react-wired": "^1.0.1",
-    "wired-button": "^1.0.0",
-    "wired-elements": "^1.0.0"
+    "react-dom": "^16.9.0"
   }
 }

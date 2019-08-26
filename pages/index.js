@@ -1,41 +1,57 @@
-import { WiredButton } from 'react-wired';
+import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
+import { makeStyles } from '@material-ui/styles';
 
-const containerStyle = {
-	display: 'flex',
-	height: '100vh',
-	flexDirection: 'column',
-	justifyContent: 'space-around',
-	alignContent: 'center',
-}
+const classes = {
+	rootContainer: {
+		width: '80%',
+		height: '50vh',
+		margin: '0 auto',
+	},
+	buttonContainer: {
+		textAlign: 'center',
+	},
+	menuButton: {
+		width: '80%',
+	}
+};
 
-const buttonStyle = {
-	display: 'inline-flex',
-	margin: '0 auto',
-}
-
-class Index extends React.Component {
+class MenuButton extends React.Component {
 	render() {
 		return (
-			<div style={containerStyle}>
-				<div className="menuItemContainer">
-					<WiredButton elevation={5} text="Play"></WiredButton>
-				</div>
-				<div className="menuItemContainer">
-					<WiredButton text="High scores"></WiredButton>
-				</div>
-				<div className="menuItemContainer">
-					<WiredButton text="Settings"></WiredButton>
-				</div>
-				<div className="menuItemContainer">
-					<WiredButton text="About"></WiredButton>
-				</div>
-				<style jsx>{`
-					.menuItemContainer {
-						display: inline-flex;
-						margin: 0 auto;
-					}
-				`}</style>
-			</div>
+			<Grid item style={classes.buttonContainer}>
+				<Button variant="contained" size="large" color="primary" style={classes.menuButton}>
+					{ this.props.text }
+				</Button>
+			</Grid>
+		);
+	}
+}
+
+
+class Index extends React.Component {
+	constructor(props) {
+		super(props);
+
+		this.state = {
+			
+		}
+	}
+
+	render() {
+		return (
+			<Grid
+				alignItems="stretch"
+				style={classes.rootContainer}
+				container
+				direction="column"
+				justify="space-around"
+			>
+				<MenuButton text="Play" />
+				<MenuButton text="High_scores" />
+				<MenuButton text="Settings" />
+				<MenuButton text="About" />
+			</Grid>
 		)
 	}
 }
