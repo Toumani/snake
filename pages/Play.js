@@ -69,8 +69,6 @@ class Play extends React.Component {
 		// By default food does not move
 		let newFood = food;
 
-		newPresence.push(newHead);
-
 		// If the snake eats the food
 		if (newHead.x === food.x && newHead.y === food.y) {
 			// New random position for food
@@ -89,6 +87,7 @@ class Play extends React.Component {
 			newTail = tail;
 		}
 		else {
+			newTail = tail.lead
 			removeTail = true;
 		}
 
@@ -101,7 +100,7 @@ class Play extends React.Component {
 
 		// Checking if new head is on snakes body.
 		// We are checking on old presence since new head belongs to new presence
-		let body = tail.lead;
+		let body = newTail;
 		while (body !== head) {
 			if (body.x === newHead.x && body.y === newHead.y) {
 				// Game over
@@ -116,8 +115,8 @@ class Play extends React.Component {
 
 		if (removeTail) {
 			_.remove(newPresence, {x: tail.x, y: tail.y})
-			newTail = tail.lead
 		}
+		newPresence.push(newHead);
 
 		this.setState({
 			presence: newPresence,
@@ -209,12 +208,12 @@ class Play extends React.Component {
 					food={this.state.food}
 					handleKeyPress={(keyEvent) => this.handleKeyPress(keyEvent)}
 				/>
-				<CanvasGriddle
+				{/* <CanvasGriddle
 					presence={this.state.presence}
 					head={this.state.head}
 					food={this.state.food}
 					handleKeyPress={(keyEvent) => this.handleKeyPress(keyEvent)}
-				/>
+				/> */}
 				<button onClick={this.moveLeft}>Left</button>
 				<button onClick={this.moveDown}>Down</button>
 				<button onClick={this.moveUp}>Up</button>
